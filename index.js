@@ -35,6 +35,10 @@ class Knight {
 
   knightMoves(queue = [this.start]) {
     board.setBoardVal(this.start[0], this.start[1], 'start');
+
+    // Set the value of each board square that is found via this.findPossibleMoves()
+    //   to the value of the square from which the knight arrived
+    //   ex.) if knight jumps from (2,2) to (3,4), board.getBoardValue(3,4) = (2,2)
     while (queue.length > 0) {
       const curr = queue.shift();
       const possibleMoves = this.findPossibleMoves(curr[0], curr[1]);
@@ -43,6 +47,7 @@ class Knight {
         queue.push(move);
       });
 
+      // if board position is end, then create an array tracing back from end to start
       if (board.getBoardVal(this.end[0], this.end[1]) != 0) {
         const pathQueue = [this.end];
         const path = [];
